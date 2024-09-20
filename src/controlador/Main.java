@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		Modelo miModelo = new Modelo();
-		Vista[] misVistas = new Vista[4];
+		Vista[] misVistas = new Vista[5];
 		Controlador miControlador = new Controlador();
 
 		misVistas[0] = new _00_Inicial();
