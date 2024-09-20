@@ -43,17 +43,24 @@ public class _00_Inicial extends JFrame implements Vista {
 		getContentPane().setBackground(new Color(141, 141, 141));
 		getContentPane().setLayout(null);
 
+		setResizable(false);
+
 		setSize(900, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);
 
 		lblAnadirUsuario = new JLabel("Anadir Usuario");
+
 		lblAnadirUsuario.setFont(new Font("Minecraft", Font.PLAIN, 15));
+
+		lblAnadirUsuario.setFont(new Font("Minecraft", Font.BOLD, 15));
+
 		lblAnadirUsuario.setBounds(219, 157, 145, 51);
 		getContentPane().add(lblAnadirUsuario);
 
 		lblLeerUsuario = new JLabel("Leer Usuario");
+
 		lblLeerUsuario.setFont(new Font("Minecraft", Font.PLAIN, 15));
 		lblLeerUsuario.setBounds(542, 160, 120, 45);
 		getContentPane().add(lblLeerUsuario);
@@ -66,6 +73,20 @@ public class _00_Inicial extends JFrame implements Vista {
 		lblEliminarUsuario = new JLabel("Eliminar Usuario");
 		lblEliminarUsuario.setFont(new Font("Minecraft", Font.PLAIN, 15));
 		lblEliminarUsuario.setBounds(521, 419, 145, 45);
+
+		lblLeerUsuario.setFont(new Font("Minecraft", Font.BOLD, 15));
+		lblLeerUsuario.setBounds(542, 160, 125, 45);
+		getContentPane().add(lblLeerUsuario);
+
+		lblActualizarUsuario = new JLabel("Actualizar Usuario");
+		lblActualizarUsuario.setFont(new Font("Minecraft", Font.BOLD, 15));
+		lblActualizarUsuario.setBounds(201, 419, 185, 45);
+		getContentPane().add(lblActualizarUsuario);
+
+		lblEliminarUsuario = new JLabel("Eliminar Usuario");
+		lblEliminarUsuario.setFont(new Font("Minecraft", Font.BOLD, 15));
+		lblEliminarUsuario.setBounds(521, 419, 152, 45);
+
 		getContentPane().add(lblEliminarUsuario);
 
 		lblTitulo = new JLabel("Gestor de Usuarios");
@@ -146,6 +167,13 @@ public class _00_Inicial extends JFrame implements Vista {
 		btnAnadirUsuario.setBorder(null);
 		btnAnadirUsuario.setBounds(201, 200, 175, 90);
 		getContentPane().add(btnAnadirUsuario);
+
+		ImageIcon fondoMinecraft = new ImageIcon(".\\img\\fondoMinecraft.jpg");
+
+		JLabel lblImagenFondo = new JLabel();
+		lblImagenFondo.setBounds(-46, 0, 1067, 600);
+		getContentPane().add(lblImagenFondo);
+		lblImagenFondo.setIcon(fondoMinecraft);
 
 	}
 }
