@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 import modelo.Modelo;
@@ -27,4 +29,47 @@ public class Controlador {
 		((JFrame) misVistas[hasta]).setVisible(true);
 	}
 
+	public boolean comprobarIdExistente(String id) {
+		
+		ArrayList<String> listaIdArchivo = miModelo.devolverArrayListId();
+		
+		if (listaIdArchivo.contains(id)) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	public boolean insertarUsuario(String id, String nombre, String correo) {
+		
+		String registro = (id + ";" + nombre + ";" + correo);
+		return (miModelo.insertarUsuario(registro));
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
