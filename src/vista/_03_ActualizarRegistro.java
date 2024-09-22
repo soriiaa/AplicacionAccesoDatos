@@ -53,6 +53,10 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 		ImageIcon imagenFondoActualizarRegistro = new ImageIcon(".\\img\\fondoActualizarRegistro.jpg");
 
 		lblVolver = new JLabel("");
+		lblVolver.setIcon(new ImageIcon(".\\img\\flechaAtras.png"));
+		lblVolver.setBackground(new Color(0, 0, 0));
+		lblVolver.setBounds(785, 23, 50, 50);
+		getContentPane().add(lblVolver);
 		lblVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -65,44 +69,40 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 				miControlador.cambiarVentana(1, 0);
 			}
 		});
-		
-				txtNombre = new JTextField();
-				txtNombre.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						comprobarCampos();
-					}
 
-					@Override
-					public void keyReleased(KeyEvent e) {
-						comprobarCampos();
-					}
+		txtNombre = new JTextField();
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(177, 480, 254, 38);
+		txtNombre.setBorder(null);
+		txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+		getContentPane().add(txtNombre);
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				comprobarCampos();
+			}
 
-					@Override
-					public void keyTyped(KeyEvent e) {
-						comprobarCampos();
-					}
-				});
-				
-						JLabel lblNombre = new JLabel("Nombre");
-						lblNombre.setFont(new Font("Minecraft", Font.PLAIN, 20));
-						lblNombre.setBounds(333, 486, 91, 26);
-						getContentPane().add(lblNombre);
-				txtNombre.setColumns(10);
-				txtNombre.setBounds(177, 480, 254, 38);
-				txtNombre.setBorder(null);
-				txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
-				getContentPane().add(txtNombre);
+			@Override
+			public void keyReleased(KeyEvent e) {
+				comprobarCampos();
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				comprobarCampos();
+			}
+		});
+
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Minecraft", Font.PLAIN, 20));
+		lblNombre.setBounds(333, 486, 91, 26);
+		getContentPane().add(lblNombre);
 
 		JLabel lblCorreo = new JLabel("Correo");
 		lblCorreo.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		lblCorreo.setBounds(598, 486, 91, 26);
 		getContentPane().add(lblCorreo);
-		lblVolver.setIcon(new ImageIcon(".\\img\\flechaAtras.png"));
-		lblVolver.setBackground(new Color(0, 0, 0));
-		lblVolver.setBounds(785, 23, 50, 50);
-		getContentPane().add(lblVolver);
-
+		
 		JLabel lblTitulo = new JLabel("Actualizar Usuarios");
 		lblTitulo.setFont(new Font("Minecraft", Font.PLAIN, 30));
 		lblTitulo.setBounds(358, 23, 373, 55);
@@ -150,24 +150,21 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 		getContentPane().add(txtCorreo);
 
 		btnConfirmar = new JButton("Confirmar");
-
-		btnConfirmar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-				if (botonActivado) {
-					btnConfirmar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-					btnConfirmar.setBackground(new Color(200, 200, 200));
-				}
-
-			}
-		});
 		btnConfirmar.setBackground(new Color(255, 255, 255));
 		btnConfirmar.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		btnConfirmar.setBounds(721, 480, 141, 39);
 		btnConfirmar.setBorder(null);
 		btnConfirmar.setEnabled(false);
 		getContentPane().add(btnConfirmar);
+		btnConfirmar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if (botonActivado) {
+					btnConfirmar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					btnConfirmar.setBackground(new Color(200, 200, 200));
+				}
+			}
+		});
 
 		JLabel lblImagenFondo = new JLabel();
 		lblImagenFondo.setBounds(-46, 0, 1067, 600);

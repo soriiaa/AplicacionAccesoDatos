@@ -62,16 +62,13 @@ public class _01_EscribirRegistro extends JFrame implements Vista {
 		getContentPane().add(lblTitulo);
 
 		btnAnadir = new JButton("Anadir");
-
 		btnAnadir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-
 				if (botonActivado) {
 					btnAnadir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					btnAnadir.setBackground(new Color(200, 200, 200));
 				}
-
 			}
 		});
 		btnAnadir.setBackground(new Color(255, 255, 255));
@@ -138,11 +135,10 @@ public class _01_EscribirRegistro extends JFrame implements Vista {
 		});
 		txtId.setBounds(108, 264, 90, 38);
 		txtId.setBorder(null);
-		txtId.setBorder(
-				BorderFactory.createCompoundBorder(txtId.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
-		getContentPane().add(txtId);
+		txtId.setBorder(BorderFactory.createCompoundBorder(txtId.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
 		txtId.setColumns(10);
-
+		getContentPane().add(txtId);
+		
 		txtNombre = new JTextField();
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -163,8 +159,7 @@ public class _01_EscribirRegistro extends JFrame implements Vista {
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(240, 264, 197, 38);
 		txtNombre.setBorder(null);
-		txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(),
-				BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+		txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
 		getContentPane().add(txtNombre);
 
 		txtCorreo = new JTextField();
