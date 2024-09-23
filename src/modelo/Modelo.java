@@ -121,4 +121,43 @@ public class Modelo {
 		
 	}
 
+	public int eliminarRegistro(String id) {
+		
+		ArrayList<String> listaRegistros = leerArchivo();
+		String[][] listaRegistrosArray = new String[listaRegistros.size() / 3][3];
+		int contador = 0;
+		
+		for (int i = 0; i < listaRegistros.size() / 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				listaRegistrosArray[i][j] = listaRegistros.get(contador);
+				contador++;
+			}
+		}
+		
+		for (int i = 0; i < listaRegistrosArray.length; i++) {
+			if (listaRegistrosArray[i][0].equals(id)) {
+				listaRegistrosArray[i][0] = "";
+				listaRegistrosArray[i][1] = "";
+				listaRegistrosArray[i][2] = "";
+			}
+		}
+		
+		try {
+			FileWriter writer = new FileWriter("archivo.txt");
+			
+			for (int i = 0; i < listaRegistrosArray.length; i++) {
+				if (!listaRegistrosArray[i][0].equals("")) {
+					String registro = listaRegistrosArray[i][0] + ";" + listaRegistrosArray[i][1] + ";" + listaRegistrosArray[i][2] + "\n";
+					writer.write(registro);
+				}
+			}
+			
+			writer.close();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 }

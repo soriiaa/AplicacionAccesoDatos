@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,10 @@ import javax.swing.JPanel;
 
 import controlador.Controlador;
 import modelo.Modelo;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
 
 public class _04_EliminarRegistro extends JFrame implements Vista {
 
@@ -22,6 +27,9 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 	private Modelo miModelo;
 	private JLabel lblVolver;
 	private JButton btnConfirmar;
+	private JComboBox<String> comboBoxId;
+	private JLabel lblTick;
+	private JLabel lblErrorGeneral;
 
 	@Override
 	public void setModelo(Modelo miModelo) {
@@ -57,7 +65,7 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				miControlador.cambiarVentana(1, 0);
+				miControlador.cambiarVentana(4, 0);
 			}
 		});
 		
@@ -70,6 +78,7 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 		getContentPane().add(lblEliminarUsuario);
 		
 		btnConfirmar = new JButton("Confirmar");
+		
 		btnConfirmar.setBackground(new Color(255, 255, 255));
 		btnConfirmar.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		btnConfirmar.setBounds(710, 480, 141, 39);
@@ -83,8 +92,8 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 			}
 		});
 		
-		String[] opciones = { "1", "2", "3", "4" };
-		JComboBox<String> comboBoxId = new JComboBox<>(opciones);
+		String[] opciones = { "a" };
+		comboBoxId = new JComboBox<>(opciones);
 		comboBoxId.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		comboBoxId.setBounds(585, 480, 115, 39);
 		comboBoxId.setBorder(null);
@@ -101,6 +110,19 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 		panel.add(lblId);
 		lblId.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		
+		lblTick = new JLabel("");
+		lblTick.setIcon(new ImageIcon(".\\img\\tickVerde.png"));
+		lblTick.setBounds(756, 419, 50, 50);
+		lblTick.setVisible(false);
+		getContentPane().add(lblTick);
+		
+		lblErrorGeneral = new JLabel("Error");
+		lblErrorGeneral.setForeground(new Color(255, 0, 0));
+		lblErrorGeneral.setFont(new Font("Minecraft", Font.PLAIN, 15));
+		lblErrorGeneral.setBounds(756, 441, 67, 29);
+		lblErrorGeneral.setVisible(false);
+		getContentPane().add(lblErrorGeneral);
+		
 		JLabel lblImagenFondo = new JLabel();
 		lblImagenFondo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -112,6 +134,66 @@ public class _04_EliminarRegistro extends JFrame implements Vista {
 		lblImagenFondo.setBounds(-46, 0, 1067, 600);
 		getContentPane().add(lblImagenFondo);
 		lblImagenFondo.setIcon(fondoPantalla);
+		
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int salidaCodigo = miControlador.eliminarRegistro(comboBoxId.getSelectedItem().toString());
+				
+				if (salidaCodigo == 0) {
+					lblTick.setVisible(true);
+				} else {
+					lblErrorGeneral.setVisible(true);
+				}
+				
+				ArrayList<String> listaId = miControlador.devolverId();
+				String[] arrayId = new String[listaId.size()];
+				for (int i = 0; i < listaId.size(); i++) {
+					arrayId[i] = listaId.get(i);
+				}
+				
+				comboBoxId.removeAllItems();
+				for (int i = 0; i < arrayId.length; i++) {
+					comboBoxId.addItem(arrayId[i]);
+				}
+				
+			}
+		});
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				
+				ArrayList<String> listaId = miControlador.devolverId();
+				String[] arrayId = new String[listaId.size()];
+				for (int i = 0; i < listaId.size(); i++) {
+					arrayId[i] = listaId.get(i);
+				}
+				
+				comboBoxId.removeAllItems();
+				for (int i = 0; i < arrayId.length; i++) {
+					comboBoxId.addItem(arrayId[i]);
+				}
+				
+				comprobarCampo();
+				
+			}
+		});
 
 	}
+	
+	public void comprobarCampo() {
+		
+		if (comboBoxId.getItemCount() == 0) {
+			btnConfirmar.setEnabled(false);
+			lblErrorGeneral.setVisible(false);
+			lblTick.setVisible(false);
+		} else {
+			btnConfirmar.setEnabled(true);
+			lblErrorGeneral.setVisible(false);
+			lblTick.setVisible(false);
+		}
+		
+	}
+	
 }

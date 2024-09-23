@@ -63,6 +63,10 @@ public class Controlador {
 	public int editarRegistro(String id, String nombre, String correo) {
 		return miModelo.editarRegistro(id, nombre, correo);
 	}
+	
+	public int eliminarRegistro(String id) {
+		return miModelo.eliminarRegistro(id);
+	}
 
 }
 
