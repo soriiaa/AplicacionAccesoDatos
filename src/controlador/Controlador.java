@@ -47,6 +47,13 @@ public class Controlador {
 		return (miModelo.insertarUsuario(registro));
 		
 	}
+	
+	public ArrayList<String> recogerRegistros() {
+		
+		ArrayList<String> listaRegistros = miModelo.leerArchivo();
+		return listaRegistros;
+		
+	}
 
 }
 

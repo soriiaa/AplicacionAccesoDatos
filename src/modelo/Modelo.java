@@ -11,7 +11,7 @@ import controlador.Controlador;
 import vista.Vista;
 
 public class Modelo {
-	
+
 	private Vista[] misVistas;
 	private Controlador miControlador;
 
@@ -24,9 +24,9 @@ public class Modelo {
 	}
 
 	public ArrayList<String> devolverArrayListId() {
-		
+
 		ArrayList<String> listaId = new ArrayList<>();
-		
+
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader("archivo.txt"));
 			String linea;
@@ -41,13 +41,13 @@ public class Modelo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return listaId;
-		
+
 	}
 
 	public boolean insertarUsuario(String registro) {
-		
+
 		try {
 			FileWriter writer = new FileWriter("archivo.txt", true);
 			writer.write(registro + "\n");
@@ -58,5 +58,30 @@ public class Modelo {
 		}
 		return true;
 	}
-	
+
+	public ArrayList<String> leerArchivo() {
+
+		ArrayList<String> listaRegistros = new ArrayList<>();
+
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader("archivo.txt"));
+			String linea;
+			String[] categorias;
+			while ((linea = lector.readLine()) != null) {
+				categorias = linea.split(";");
+				listaRegistros.add(categorias[0]);
+				listaRegistros.add(categorias[1]);
+				listaRegistros.add(categorias[2]);
+			}
+			lector.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return listaRegistros;
+
+	}
+
 }
