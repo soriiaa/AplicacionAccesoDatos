@@ -54,6 +54,15 @@ public class Controlador {
 		return listaRegistros;
 		
 	}
+	
+	public ArrayList<String> devolverId() {
+		ArrayList<String> listaId = miModelo.devolverArrayListId();
+		return listaId;
+	}
+
+	public int editarRegistro(String id, String nombre, String correo) {
+		return miModelo.editarRegistro(id, nombre, correo);
+	}
 
 }
 

@@ -1,7 +1,3 @@
-1;asd;sdf
-2;asdf;dfgh
-3;sdfs;dfghf
-5;asdfdf;dfdsdf
-6;asdfsdfs;sdfsdf
-7;Alejandro;AlejandroSoria
-8;Aitor;AitorAgudo
+1;Alejandro;Soooria
+2;Aitor;Agudo
+3;Nacho;Oya

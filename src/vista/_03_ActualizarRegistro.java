@@ -3,10 +3,13 @@ package vista;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,6 +22,8 @@ import javax.swing.JTextField;
 
 import controlador.Controlador;
 import modelo.Modelo;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class _03_ActualizarRegistro extends JFrame implements Vista {
 
@@ -29,6 +34,9 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 	private JTextField txtCorreo;
 	private JButton btnConfirmar;
 	private boolean botonActivado = false;
+	private JLabel lblTick;
+	private JLabel lblErrorGeneral;
+	private JComboBox<String> comboBoxId;
 
 	@Override
 	public void setModelo(Modelo miModelo) {
@@ -52,6 +60,11 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 
 		ImageIcon imagenFondoActualizarRegistro = new ImageIcon(".\\img\\fondoActualizarRegistro.jpg");
 
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Minecraft", Font.PLAIN, 20));
+		lblNombre.setBounds(333, 486, 91, 26);
+		getContentPane().add(lblNombre);
+
 		lblVolver = new JLabel("");
 		lblVolver.setIcon(new ImageIcon(".\\img\\flechaAtras.png"));
 		lblVolver.setBackground(new Color(0, 0, 0));
@@ -66,7 +79,8 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				miControlador.cambiarVentana(1, 0);
+				reiniciarPagina();
+				miControlador.cambiarVentana(3, 0);
 			}
 		});
 
@@ -74,7 +88,8 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(177, 480, 254, 38);
 		txtNombre.setBorder(null);
-		txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
+		txtNombre.setBorder(BorderFactory.createCompoundBorder(txtNombre.getBorder(),
+				BorderFactory.createEmptyBorder(0, 10, 0, 0)));
 		getContentPane().add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -93,29 +108,15 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 			}
 		});
 
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Minecraft", Font.PLAIN, 20));
-		lblNombre.setBounds(333, 486, 91, 26);
-		getContentPane().add(lblNombre);
-
 		JLabel lblCorreo = new JLabel("Correo");
 		lblCorreo.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		lblCorreo.setBounds(598, 486, 91, 26);
 		getContentPane().add(lblCorreo);
-		
+
 		JLabel lblTitulo = new JLabel("Actualizar Usuarios");
 		lblTitulo.setFont(new Font("Minecraft", Font.PLAIN, 30));
 		lblTitulo.setBounds(358, 23, 373, 55);
 		getContentPane().add(lblTitulo);
-
-		String[] opciones = { "1", "2", "3", "4" };
-		JComboBox<String> comboBoxId = new JComboBox<>(opciones);
-		comboBoxId.setFont(new Font("Minecraft", Font.PLAIN, 20));
-		comboBoxId.setBounds(52, 480, 115, 39);
-		comboBoxId.setBorder(null);
-		comboBoxId.setBackground(new Color(255, 255, 255));
-		comboBoxId.setOpaque(true);
-		getContentPane().add(comboBoxId);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
@@ -148,8 +149,22 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 		txtCorreo.setBounds(441, 481, 254, 38);
 		txtCorreo.setBorder(BorderFactory.createCompoundBorder(txtCorreo.getBorder(), BorderFactory.createEmptyBorder(0, 10, 0, 0)));
 		getContentPane().add(txtCorreo);
+		
+		lblTick = new JLabel("");
+		lblTick.setIcon(new ImageIcon(".\\img\\tickVerde.png"));
+		lblTick.setBounds(766, 416, 50, 50);
+		lblTick.setVisible(false);
+		getContentPane().add(lblTick);
+		
+		lblErrorGeneral = new JLabel("Error");
+		lblErrorGeneral.setForeground(new Color(255, 0, 0));
+		lblErrorGeneral.setFont(new Font("Minecraft", Font.PLAIN, 15));
+		lblErrorGeneral.setBounds(766, 437, 67, 29);
+		lblErrorGeneral.setVisible(false);
+		getContentPane().add(lblErrorGeneral);
 
 		btnConfirmar = new JButton("Confirmar");
+		
 		btnConfirmar.setBackground(new Color(255, 255, 255));
 		btnConfirmar.setFont(new Font("Minecraft", Font.PLAIN, 20));
 		btnConfirmar.setBounds(721, 480, 141, 39);
@@ -166,16 +181,56 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 			}
 		});
 
+		String[] arrayId = {"a"};
+
+		comboBoxId = new JComboBox<>(arrayId);
+		comboBoxId.setFont(new Font("Minecraft", Font.PLAIN, 20));
+		comboBoxId.setBounds(52, 480, 115, 39);
+		comboBoxId.setBorder(null);
+		comboBoxId.setBackground(new Color(255, 255, 255));
+		comboBoxId.setOpaque(true);
+		getContentPane().add(comboBoxId);
+
 		JLabel lblImagenFondo = new JLabel();
 		lblImagenFondo.setBounds(-46, 0, 1067, 600);
 		getContentPane().add(lblImagenFondo);
 		lblImagenFondo.setIcon(imagenFondoActualizarRegistro);
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				ArrayList<String> listaId = miControlador.devolverId();
+				String[] arrayId = new String[listaId.size()];
+				for (int i = 0; i < listaId.size(); i++) {
+					arrayId[i] = listaId.get(i);
+				}
+				
+				comboBoxId.removeAllItems();
+				for (int i = 0; i < arrayId.length; i++) {
+					comboBoxId.addItem(arrayId[i]);
+				}
+				
+			}
+		});
+		
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int codigoSalida = miControlador.editarRegistro(comboBoxId.getSelectedItem().toString(), txtNombre.getText(), txtCorreo.getText());
+				if (codigoSalida == 0) {
+					reiniciarPagina();
+					lblTick.setVisible(true);
+				} else {
+					lblErrorGeneral.setVisible(true);
+				}
+			}
+		});
 
 	}
 
 	public void comprobarCampos() {
 
-		if (txtNombre.getText().isBlank() || txtCorreo.getText().isBlank()) {
+		if (txtNombre.getText().isBlank() || txtCorreo.getText().isBlank() || comboBoxId.getItemCount() == 0) {
 			btnConfirmar.setEnabled(false);
 			botonActivado = false;
 		} else {
@@ -183,6 +238,13 @@ public class _03_ActualizarRegistro extends JFrame implements Vista {
 			botonActivado = true;
 		}
 
+	}
+
+	public void reiniciarPagina() {
+		txtNombre.setText("");
+		txtCorreo.setText("");
+		lblTick.setVisible(false);
+		lblErrorGeneral.setVisible(false);
 	}
 
 }
